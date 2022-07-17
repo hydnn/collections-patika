@@ -1,0 +1,41 @@
+using System;
+using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp31
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Lütfen metni giriniz: ");
+            string metin = Console.ReadLine().ToLower();
+            string sesli = "aeıioöuü";
+
+            List<char> sesliHarfler = new List<char>();
+
+            // sesli harf kontrolu ve atamasi
+            int sayac = 0;
+            for (int i = 0; i < metin.Length; i++)
+            {
+                if (sesli.Contains(metin[i]))
+                {
+                    sayac++;
+                    sesliHarfler.Add(metin[i]);
+                }
+            }
+
+            Console.WriteLine("***** Sesli Harfler *****");
+            sesliHarfler.Sort();
+            foreach (var item in sesliHarfler)
+            {
+                Console.Write(item);
+            }
+
+            Console.ReadLine();
+        }
+    }
+}
