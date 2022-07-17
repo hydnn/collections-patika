@@ -1,0 +1,80 @@
+using System;
+using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp31
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            ArrayList sayilar = new ArrayList();
+            int[] kucuk = new int[3];
+            int[] buyuk = new int[3];
+
+            for (int i = 0; i < 10; i++)
+            {
+                try
+                {
+                    Console.Write("Lütfen {0}. sayiyi giriniz: ", i + 1);
+                    int sayi = Convert.ToInt32((Console.ReadLine()));
+
+                    if (sayi <= 0)
+                    {
+                        Console.WriteLine("Lütfen sadece pozitif sayi giriniz!");
+                    }
+                    else
+                    {
+                        sayilar.Add(sayi);
+                    }
+                }
+                catch (System.Exception)
+                {
+                    Console.WriteLine("Lütfen sadece nümaretik değer giriniz!");
+                }
+            }
+            sayilar.Sort();
+
+            for (int i = 0; i < 3; i++)
+            {
+                kucuk[i] = (int)sayilar[i];
+            }
+
+            Console.WriteLine("***** En kücük üc sayi *****");
+            foreach (var item in kucuk)
+            {
+                Console.WriteLine(item);
+            }
+
+            sayilar.Reverse();
+            for (int i = 0; i < 3; i++)
+            {
+                buyuk[i] = (int)sayilar[i];
+            }
+
+            Console.WriteLine("***** En büyük üc sayi *****");
+            foreach (var item in buyuk)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.WriteLine();
+
+            int kTop = 0;
+            int bTop = 0;
+            for (int i = 0; i < kucuk.Length; i++)
+            {
+                kTop += kucuk[i];
+                bTop += buyuk[i];
+            }
+            int top = (kTop / 3) + (bTop / 3);
+            Console.WriteLine("En Kücük Üclünün ortalamasi = " + (kTop / 3));
+            Console.WriteLine("En Büyük Üclünün ortalamasi = " + (bTop / 3));
+            Console.WriteLine("ORTALAMALARIN TOPLAMI : "+top);
+            Console.ReadLine();
+        }
+    }
+}
