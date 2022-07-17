@@ -1,0 +1,103 @@
+using System;
+using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp31
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            ArrayList asalSayilar = new ArrayList();
+            ArrayList asalOlmayanSayilar = new ArrayList();
+
+            //Klavyeden girilen 20 adet pozitif sayının asal ve asal olmayan olarak 2 ayrı listeye atama
+            for (int i = 0; i < 20; i++)
+            {
+                Console.Write("{0}. sayıyı gir : ", i+1);
+                try
+                {
+                    int n = Convert.ToInt32(Console.ReadLine());
+                    if (n <= 0)
+                    {
+                        Console.WriteLine("Lütfen sadece pozitif sayilar giriniz!");
+                    }
+                    else
+                    {
+                        if (AsalSayi(n))
+                        {
+                            asalSayilar.Add(n);
+                        }
+                        else
+                        {
+                            asalOlmayanSayilar.Add(n);
+                        }
+                    }
+                }
+                catch (Exception e)     // try-catch ile negatif ve numeric olmayan girişleri engelleme
+                {
+                    Console.WriteLine("Lütfen sadece nümaratik degerler giriniz!");
+                }
+            }
+
+            //Her bir dizinin elemanlarını büyükten küçüğe sıralama
+            asalSayilar.Sort();
+            asalOlmayanSayilar.Sort();
+
+            asalSayilar.Reverse();
+            asalOlmayanSayilar.Reverse();
+
+            Console.WriteLine("***** [Sıralı] Asal Sayilar *****");
+            foreach (var item in asalSayilar)
+                Console.WriteLine(item);
+
+            Console.WriteLine("***** [Sıralı] Asal Olmayan Sayilar *****");
+            foreach (var item in asalOlmayanSayilar)
+                Console.WriteLine(item);
+
+            //Her iki dizinin eleman sayısını ve ortalamasını ekrana yazdırma
+            Console.WriteLine("-----------------------------");
+            Console.WriteLine("Asal Sayıların Sayisi: " + asalSayilar.Count);
+            Console.WriteLine("Asal Olmayan Sayıların Sayisi: " + asalOlmayanSayilar.Count);
+
+            // Eleman toplamlari
+            int asalToplam = 0;
+            int asalOlmayanToplam = 0;
+            foreach (int item in asalSayilar)
+            {
+                asalToplam += item;
+            }
+            foreach (int item in asalOlmayanSayilar)
+            {
+                asalOlmayanToplam += item;
+            }
+            Console.WriteLine("-----------------------------");
+            Console.WriteLine("Asal Sayıların Ortalamasi: " + (asalToplam / asalSayilar.Count));
+            Console.WriteLine("Asal Olmayan Sayıların Ortalamasi: " + (asalOlmayanToplam / asalOlmayanSayilar.Count));
+
+
+            Console.ReadLine();        
+        }
+
+        static bool AsalSayi(int n)
+        {
+            bool result = true;
+            for (int i = 2; i < n - 1; i++)
+            {
+                if (n % i == 0)
+                {
+                    result = false;
+                    i = n;
+                }
+            }
+            if (n < 2)
+            {
+                result = false;
+            }
+            return result;
+        }
+    }
+}
